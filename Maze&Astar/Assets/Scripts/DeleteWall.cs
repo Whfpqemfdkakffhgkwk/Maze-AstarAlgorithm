@@ -13,7 +13,6 @@ public class DeleteWall : MonoBehaviour
         if(collision.CompareTag("Wall"))
         {
             Destroy(collision.gameObject);
-            print("asd");
         }
     }
 }
