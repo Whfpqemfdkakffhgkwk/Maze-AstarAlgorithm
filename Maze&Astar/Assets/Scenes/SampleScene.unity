@@ -164,7 +164,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 2088039763}
   Wall: {fileID: 4569783679188127492, guid: 958016de00c869844ba1f40e8dbe71e4, type: 3}
-  MazeSize: 100
+  DeleteWall: {fileID: 8500466601443016623, guid: 024557e45f342b1409907ca006c074b0, type: 3}
+  MazeSize: 10
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
