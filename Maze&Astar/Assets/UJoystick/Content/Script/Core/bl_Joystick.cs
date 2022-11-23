@@ -19,13 +19,7 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField] private RectTransform StickRect;//The middle joystick UI
     [SerializeField] private RectTransform CenterReference;
 
-    [Header("position calculation")]
-    [SerializeField] private GameObject canvas;
-    [SerializeField] private GameObject eventSystem;
-    [SerializeField] private GameObject PlayerObj;
-    private GraphicRaycaster m_Raycaster;
-    private PointerEventData m_PointerEventData;
-    private EventSystem m_EventSystem;
+    public bool isDrag = false;
 
     //Privates
     private Vector3 DeathArea;
@@ -76,13 +70,6 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             backImage.CrossFadeColor(NormalColor, 0.1f, true, true);
             stickImage.CrossFadeColor(NormalColor, 0.1f, true, true);
         }
-
-        //캔버스의 그래픽레이캐스터를 가져옴
-        m_Raycaster = canvas.GetComponent<GraphicRaycaster>();
-
-        //이벤트 시스템 가져옴
-        m_EventSystem = eventSystem.GetComponent<EventSystem>();
-        StartCoroutine(JoystickDirection());
     }
 
     /// <summary>
@@ -138,6 +125,7 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         //If this touch id is the first touch in the event
         if (data.pointerId == lastId)
         {
+            isDrag = true;
             isFree = false;
             //Get Position of current touch
             Vector3 position = bl_JoystickUtils.TouchPosition(m_Canvas, GetTouchID);
@@ -161,6 +149,7 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerUp(PointerEventData data)
     {
         isFree = true;
+        isDrag = false;
         currentVelocity = Vector3.zero;
         //leave the default id again
         if (data.pointerId == lastId)
@@ -247,41 +236,5 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             return (StickRect.position.y - DeathArea.y) / Radio;
         }
-    }
-
-    IEnumerator JoystickDirection()
-    {
-        print("b");
-        if (new Vector2(StickRect.position.x, StickRect.position.y) != new Vector2(0, 0))
-        {
-            m_PointerEventData = new PointerEventData(m_EventSystem);
-
-            print("a");
-            m_PointerEventData.position = new Vector2(StickRect.position.x, StickRect.position.y);
-
-            List<RaycastResult> results = new List<RaycastResult>();
-            m_Raycaster.Raycast(m_PointerEventData, results);
-            if (results != null)
-            {
-                GameObject hitobj = results[0].gameObject;
-                switch (hitobj.name)
-                {
-                    case "Up":
-                        PlayerObj.transform.position += new Vector3(0, 1);
-                        break;
-                    case "Down":
-                        PlayerObj.transform.position += new Vector3(0, -1);
-                        break;
-                    case "Left":
-                        PlayerObj.transform.position += new Vector3(-1, 0);
-                        break;
-                    case "Right":
-                        PlayerObj.transform.position += new Vector3(1, 0);
-                        break;
-                }
-            }
-        }
-        yield return new WaitForSeconds(1);
-        StartCoroutine(JoystickDirection());
     }
 }
