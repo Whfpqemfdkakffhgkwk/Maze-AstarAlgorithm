@@ -6,13 +6,22 @@ public class DeleteWall : MonoBehaviour
 {
     private void Start()
     {
-        Destroy(gameObject, 0.01f);
+        StartCoroutine(DestoryThisGameobject());
     }
+
+    //바로 삭제되면 인식불가
+    IEnumerator DestoryThisGameobject()
+    {
+        yield return new WaitForSeconds(0.001f);
+        ObjPool.ReturnObject(EPoolType.DeleteWall, gameObject);
+    }
+    //닿은 벽 뚫어줌으로써 미로 만들어감
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Wall"))
         {
-            Destroy(collision.gameObject);
+            print("a");
+            ObjPool.ReturnObject(EPoolType.Wall, collision.gameObject);
         }
     }
 }

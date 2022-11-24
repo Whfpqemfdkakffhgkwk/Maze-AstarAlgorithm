@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+using DG.Tweening;
 public class JoyStickHandle : MonoBehaviour
 {
     [Header("position calculation")]
     [SerializeField] private bl_Joystick JS;
     [SerializeField] private GameObject canvas;
     [SerializeField] private GameObject eventSystem;
-    [SerializeField] private GameObject PlayerObj;
+    [SerializeField] private Player player;
     private GraphicRaycaster m_Raycaster;
     private PointerEventData m_PointerEventData;
     private EventSystem m_EventSystem;
@@ -44,28 +44,13 @@ public class JoyStickHandle : MonoBehaviour
                     if (results[i].gameObject.name != "Stick" &&
                         results[i].gameObject.name != "Joystick")
                     {
-                        Debug.Log(results[i].gameObject.name);
-                        switch (results[i].gameObject.name)
-                        {
-                            case "Up":
-                                PlayerObj.transform.position += new Vector3(0, 1);
-                                break;
-                            case "Down":
-                                PlayerObj.transform.position += new Vector3(0, -1);
-                                break;
-                            case "Left":
-                                PlayerObj.transform.position += new Vector3(-1, 0);
-                                break;
-                            case "Right":
-                                PlayerObj.transform.position += new Vector3(1, 0);
-                                break;
-                        }
+                        player.PlayerMove(results[i].gameObject.name);
                     }
 
                 }
             }
         }
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.3f);
         StartCoroutine(JoystickDirection());
     }
 

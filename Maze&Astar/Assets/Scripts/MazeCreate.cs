@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MazeCreate : MonoBehaviour
 {
-    [SerializeField] private GameObject Player, Wall, DeleteWall;
+    [SerializeField] private GameObject MazeStartingPoint, Wall, DeleteWall;
 
     [SerializeField] private int MazeSize = 100;
 
@@ -18,7 +18,7 @@ public class MazeCreate : MonoBehaviour
             {
                 if(i % 2 == 0 || j % 2 == 0)
                 {
-                    Instantiate(Wall, new Vector2(Player.transform.position.x + i, Player.transform.position.y + j), Wall.transform.rotation);
+                    ObjPool.GetObject(EPoolType.Wall, new Vector2(MazeStartingPoint.transform.position.x + i, MazeStartingPoint.transform.position.y + j));
                 }
             }
         }
@@ -31,25 +31,25 @@ public class MazeCreate : MonoBehaviour
 
                 if(i == Size - 2)
                 {
-                    Instantiate(DeleteWall, new Vector2(Player.transform.position.x + i, Player.transform.position.y + j + 1), Wall.transform.rotation);
+                    ObjPool.GetObject(EPoolType.DeleteWall, new Vector2(MazeStartingPoint.transform.position.x + i, MazeStartingPoint.transform.position.y + j + 1));
                     continue;
                 }
                 if(j == Size - 2)
                 {
-                    Instantiate(DeleteWall, new Vector2(Player.transform.position.x + i + 1, Player.transform.position.y + j), Wall.transform.rotation);
+                    ObjPool.GetObject(EPoolType.DeleteWall, new Vector2(MazeStartingPoint.transform.position.x + i + 1, MazeStartingPoint.transform.position.y + j));
                     continue;
                 }
 
                 if(Random.Range(0, 2) == 0)
                 {
-                    Instantiate(DeleteWall, new Vector2(Player.transform.position.x + i, Player.transform.position.y + j + 1), Wall.transform.rotation);
+                    ObjPool.GetObject(EPoolType.DeleteWall, new Vector2(MazeStartingPoint.transform.position.x + i, MazeStartingPoint.transform.position.y + j + 1));
                 }
                 else
                 {
-                    Instantiate(DeleteWall, new Vector2(Player.transform.position.x + i + 1, Player.transform.position.y + j), Wall.transform.rotation);
+                    ObjPool.GetObject(EPoolType.DeleteWall, new Vector2(MazeStartingPoint.transform.position.x + i + 1, MazeStartingPoint.transform.position.y + j));
                 }
             }
         }
-        Instantiate(DeleteWall, new Vector2(Player.transform.position.x + 1, Player.transform.position.y), Wall.transform.rotation);
+        ObjPool.GetObject(EPoolType.DeleteWall, new Vector2(MazeStartingPoint.transform.position.x + 1, MazeStartingPoint.transform.position.y));
     }
 }
