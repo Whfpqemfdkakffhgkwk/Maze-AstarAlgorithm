@@ -49,8 +49,21 @@ public class JoyStickHandle : MonoBehaviour
                     if (results[i].gameObject.name != "Stick" &&
                         results[i].gameObject.name != "Joystick")
                     {
-                        //그 방향대로 플레이어를 움직인다
-                        player.PlayerMove(results[i].gameObject.name);
+                        //벽 테스트 오브젝트 소환
+                        GameObject WallTest = ObjPool.GetObject(EPoolType.WallTest, player.gameObject.transform.position);
+                        //벽 테스트를 움직여야하는 위치로 미리 이동시켜봄
+                        WallTest.GetComponent<WallCheck>().Move(results[i].gameObject.name);
+                        yield return new WaitForSeconds(0.1f);
+                        //벽 테스트가 벽이랑 충돌하지 않았다면
+                        if(WallTest.GetComponent<WallCheck>().isWall == false)
+                        {
+                            //그 방향대로 플레이어를 움직인다
+                            player.PlayerMove(results[i].gameObject.name);
+                        }
+                        //벽 충돌 bool값을 꺼주고
+                        WallTest.GetComponent<WallCheck>().isWall = false;
+                        //벽 테스트 오브젝트 반납
+                        ObjPool.ReturnObject(EPoolType.WallTest, WallTest);
                     }
 
                 }

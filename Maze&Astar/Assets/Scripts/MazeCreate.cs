@@ -30,7 +30,7 @@ public class MazeCreate : MonoBehaviour
             {
                 //두줄마다 x, y축 다 살려놓고 랜덤하게 뚫는거기 때문에 건너뛰어줘야함
                 if (i % 2 == 0 || j % 2 == 0)
-                    //continue;
+                    continue;
 
                 if(i == Size - 2)
                 {

@@ -996,6 +996,7 @@ MonoBehaviour:
   poolingObjectPrefab:
   - {fileID: 4569783679188127492, guid: 958016de00c869844ba1f40e8dbe71e4, type: 3}
   - {fileID: 8500466601443016623, guid: 024557e45f342b1409907ca006c074b0, type: 3}
+  - {fileID: 1734147157480515767, guid: 17277c456222ed64d8fde4946080630e, type: 3}
 --- !u!1 &2088039763
 GameObject:
   m_ObjectHideFlags: 0

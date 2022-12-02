@@ -5,7 +5,8 @@ using UnityEngine;
 public enum EPoolType
 {
     Wall,
-    DeleteWall
+    DeleteWall,
+    WallTest
 }
 
 public class ObjPool : Singleton<ObjPool>
@@ -44,7 +45,7 @@ public class ObjPool : Singleton<ObjPool>
         else
         {
             //오브젝트 생성해서 빌려준다
-            obj = Instantiate(Instance. poolingObjectPrefab[(int)type]);
+            obj = Instantiate(Instance.poolingObjectPrefab[(int)type]);
             obj.SetActive(true);
             obj.transform.position = pos;
             obj.transform.SetParent(null);
