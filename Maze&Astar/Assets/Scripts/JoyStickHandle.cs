@@ -53,7 +53,7 @@ public class JoyStickHandle : MonoBehaviour
                         GameObject WallTest = ObjPool.GetObject(EPoolType.WallTest, player.gameObject.transform.position);
                         //벽 테스트를 움직여야하는 위치로 미리 이동시켜봄
                         WallTest.GetComponent<WallCheck>().Move(results[i].gameObject.name);
-                        yield return new WaitForSeconds(0.1f);
+                        yield return new WaitForSeconds(0.01f);
                         //벽 테스트가 벽이랑 충돌하지 않았다면
                         if(WallTest.GetComponent<WallCheck>().isWall == false)
                         {

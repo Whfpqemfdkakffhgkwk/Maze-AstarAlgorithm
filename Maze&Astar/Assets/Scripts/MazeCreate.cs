@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+using System.Diagnostics;
 
-public class MazeCreate : MonoBehaviour
+public class MazeCreate : Editor
 {
     [SerializeField] private GameObject MazeStartingPoint, Wall, DeleteWall;
 
     [SerializeField] private int MazeSize = 100;
-
+    public Block[,] Blocks;
 
     private void Start()
     {
@@ -19,7 +21,7 @@ public class MazeCreate : MonoBehaviour
                 if(i % 2 == 0 || j % 2 == 0)
                 {
                     //격자무늬로 벽들을 생성함
-                    ObjPool.GetObject(EPoolType.Wall, new Vector2(MazeStartingPoint.transform.position.x + i, MazeStartingPoint.transform.position.y + j));
+                    Blocks[i, j] = ObjPool.GetObject(EPoolType.Wall, new Vector2(MazeStartingPoint.transform.position.x + i, MazeStartingPoint.transform.position.y + j));
                 }
             }
         }

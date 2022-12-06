@@ -23,7 +23,7 @@ public class WallCheck : MonoBehaviour
                 vec = new Vector3(1, 0);
                 break;
         }
-        transform.DOMove(transform.position + vec, 0.1f);
+        transform.position += vec;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
