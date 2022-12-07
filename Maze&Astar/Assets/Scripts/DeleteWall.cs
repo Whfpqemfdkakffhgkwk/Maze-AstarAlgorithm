@@ -20,7 +20,6 @@ public class DeleteWall : MonoBehaviour
     {
         if(collision.CompareTag("Wall"))
         {
-            print("a");
             ObjPool.ReturnObject(EPoolType.Wall, collision.gameObject);
         }
     }

@@ -1,35 +1,50 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class WallCheck : MonoBehaviour
+public class WallCheck : Player
 {
     public bool isWall = false;
 
-    public void Move(string name)
+    public override void PlayerMove(string name)
     {
-        Vector3 vec = new Vector3(0, 0);
         switch (name)
         {
             case "Up":
-                vec = new Vector3(0, 1);
+                print("업 들어옴");
+                if(MazeCreate.Instance.Blocks[PlayerPosY + 1, PlayerPosX] == true)
+                {
+                    print("업 부분 벽 닿음");
+                    print(MazeCreate.Instance.Blocks[PlayerPosY + 1, PlayerPosX]);
+                    isWall = true;
+                }
                 break;
             case "Down":
-                vec = new Vector3(0, -1);
+                if (MazeCreate.Instance.Blocks[PlayerPosY - 1, PlayerPosX])
+                {
+                    isWall = true;
+                }
                 break;
             case "Left":
-                vec = new Vector3(-1, 0);
+                if (MazeCreate.Instance.Blocks[PlayerPosY, PlayerPosX - 1])
+                {
+                    isWall = true;
+                }
                 break;
             case "Right":
-                vec = new Vector3(1, 0);
+                if (MazeCreate.Instance.Blocks[PlayerPosY, PlayerPosX + 1])
+                {
+                    isWall = true;
+                }
                 break;
         }
-        transform.position += vec;
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.CompareTag("Wall"))
+        if(isWall)
         {
-            isWall = true;
+            isWall = false;
+        }
+        else
+        {
+            print("플레이어 이동");
+            base.PlayerMove(name);
         }
     }
 }

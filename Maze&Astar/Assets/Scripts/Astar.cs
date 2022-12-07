@@ -10,7 +10,7 @@ public class Astar : MonoBehaviour
         for (int i = 0; i < dir.Length; i++)
         {
             GameObject WallTest = ObjPool.GetObject(EPoolType.WallTest, pos);
-            WallTest.GetComponent<WallCheck>().Move(dir[i]);
+            //WallTest.GetComponent<WallCheck>().Move(dir[i]);
             yield return new WaitForSeconds(0.01f);
         }
     }

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1100856016642885436}
   - component: {fileID: 1314176124727213925}
   - component: {fileID: 1975336969109457582}
-  - component: {fileID: 3077934900327040862}
   - component: {fileID: -4560715603606177771}
   m_Layer: 0
   m_Name: WallTest
@@ -111,27 +110,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!50 &3077934900327040862
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1734147157480515767}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7
 --- !u!114 &-4560715603606177771
 MonoBehaviour:
   m_ObjectHideFlags: 0

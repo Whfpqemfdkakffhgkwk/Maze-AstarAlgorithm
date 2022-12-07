@@ -1,19 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using System.Diagnostics;
+using System;
 
-public class MazeCreate : Editor
+public class MazeCreate : Singleton<MazeCreate>
 {
-    [SerializeField] private GameObject MazeStartingPoint, Wall, DeleteWall;
+    [SerializeField] private GameObject MazeStartingPoint, Wall, DeleteWall, PlayerObj;
 
-    [SerializeField] private int MazeSize = 100;
-    public Block[,] Blocks;
+    [SerializeField] private int MazeSize;
+
+    //(y, x)
+    public bool[,] Blocks;
 
     private void Start()
     {
         int Size = MazeSize + 1;
+        Blocks = new bool[Size, Size];
         for (int i = 0; i < Size; i++)
         {
             for (int j = 0; j < Size; j++)
@@ -21,7 +22,8 @@ public class MazeCreate : Editor
                 if(i % 2 == 0 || j % 2 == 0)
                 {
                     //°ÝÀÚ¹«´Ì·Î º®µéÀ» »ý¼ºÇÔ
-                    Blocks[i, j] = ObjPool.GetObject(EPoolType.Wall, new Vector2(MazeStartingPoint.transform.position.x + i, MazeStartingPoint.transform.position.y + j));
+                    Blocks[i, j] = true;
+                    ObjPool.GetObject(EPoolType.Wall, new Vector2(MazeStartingPoint.transform.position.x + i, MazeStartingPoint.transform.position.y + j));
                 }
             }
         }
@@ -37,29 +39,38 @@ public class MazeCreate : Editor
                 if(i == Size - 2)
                 {
                     //¸¶Áö¸· ºÎºÐ yÃà ¼± ¶Õ¾îÁÜ
+                    Blocks[i, j] = false;
                     ObjPool.GetObject(EPoolType.DeleteWall, new Vector2(MazeStartingPoint.transform.position.x + i, MazeStartingPoint.transform.position.y + j + 1));
                     continue;
                 }
                 if(j == Size - 2)
                 {
                     //¸¶Áö¸· ºÎºÐ xÃà ¼± ¶Õ¾îÁÜ
+                    Blocks[i, j] = false;
                     ObjPool.GetObject(EPoolType.DeleteWall, new Vector2(MazeStartingPoint.transform.position.x + i + 1, MazeStartingPoint.transform.position.y + j));
                     continue;
                 }
 
-                if(Random.Range(0, 2) == 0)
+                //xÃàÀ» ¶Õ¾îÁÖ´À³Ä? yÃàÀ» ¶Õ¾îÁÖ´À³Ä?
+                if(UnityEngine.Random.Range(0, 2) == 0)
                 {
                     //·£´ýÇÏ°Ô xÃà ±âÁØÀ¸·Î ¶Õ¾îÁÜ
+                    Blocks[i, j] = false;
                     ObjPool.GetObject(EPoolType.DeleteWall, new Vector2(MazeStartingPoint.transform.position.x + i, MazeStartingPoint.transform.position.y + j + 1));
                 }
                 else
                 {
                     //·£´ýÇÏ°Ô yÃà ±âÁØÀ¸·Î ¶Õ¾îÁÜ
+                    Blocks[i, j] = false;
                     ObjPool.GetObject(EPoolType.DeleteWall, new Vector2(MazeStartingPoint.transform.position.x + i + 1, MazeStartingPoint.transform.position.y + j));
                 }
             }
         }
         //½ÃÀÛÁöÁ¡ ¶Õ¾îÁÜ
+        print(Blocks[1, 1]);
+        Blocks[0, 1] = false;
         ObjPool.GetObject(EPoolType.DeleteWall, new Vector2(MazeStartingPoint.transform.position.x + 1, MazeStartingPoint.transform.position.y));
+        PlayerObj.transform.position = new Vector2(MazeStartingPoint.transform.position.x + 1, MazeStartingPoint.transform.position.y);
+        PlayerObj.GetComponent<Player>().PlayerPosX = 1;
     }
 }
