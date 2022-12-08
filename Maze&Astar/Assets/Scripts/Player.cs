@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-public class Player : MonoBehaviour
+public class Player : Singleton<Player>
 {
     public int PlayerPosX, PlayerPosY; 
     public virtual void PlayerMove(string name)
