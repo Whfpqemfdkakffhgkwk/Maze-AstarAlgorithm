@@ -5,25 +5,24 @@ using DG.Tweening;
 public class Player : Singleton<Player>
 {
     public int PlayerPosX, PlayerPosY; 
-    public virtual void PlayerMove(string name)
+    public void PlayerMove(int name)
     {
         switch (name)
         {
-            case "Up":
-                print("플레이어 행동");
+            case 1:
                 PlayerPosY += 1;
                 transform.DOMove(transform.position + new Vector3(0, 1), 0.3f);
                 break;
-            case "Down":
+            case 2:
+                PlayerPosX -= 1;
+                transform.DOMove(transform.position + new Vector3(-1, 0), 0.3f);
+                break;
+            case 3:
                 PlayerPosY -= 1;
                 transform.DOMove(transform.position + new Vector3(0, -1), 0.3f);
                 break;
-            case "Left":
+            case 4:
                 PlayerPosX += 1;
-                transform.DOMove(transform.position + new Vector3(-1, 0), 0.3f);
-                break;
-            case "Right":
-                PlayerPosX -= 1;
                 transform.DOMove(transform.position + new Vector3(1, 0), 0.3f);
                 break;
         }

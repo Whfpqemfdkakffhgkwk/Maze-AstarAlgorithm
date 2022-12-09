@@ -5,32 +5,36 @@ public class WallCheck : MonoBehaviour
 {
     public bool isWall = false;
 
-    public void PlayerMove(string name)
+    public void PlayerMove(int name)
     {
         switch (name)
         {
-            case "Up":
-                print("업 들어옴");
+            case 1:
                 if(MazeCreate.Instance.Blocks[Player.Instance.PlayerPosX, Player.Instance.PlayerPosY + 1])
                 {
-                    print("업 부분 벽 닿음");
-                    print(MazeCreate.Instance.Blocks[2, 1]);
                     isWall = true;
                 }
                 break;
-            case "Down":
-                if (MazeCreate.Instance.Blocks[Player.Instance.PlayerPosX, Player.Instance.PlayerPosY - 1])
-                {
-                    isWall = true;
-                }
-                break;
-            case "Left":
+            case 2:
                 if (MazeCreate.Instance.Blocks[Player.Instance.PlayerPosX - 1, Player.Instance.PlayerPosY])
                 {
                     isWall = true;
                 }
                 break;
-            case "Right":
+            case 3:
+                if(Player.Instance.PlayerPosY - 1 >= 0)
+                {
+                    if (MazeCreate.Instance.Blocks[Player.Instance.PlayerPosX, Player.Instance.PlayerPosY - 1])
+                    {
+                        isWall = true;
+                    }
+                }
+                else
+                {
+                    isWall = true;
+                }
+                break;
+            case 4:
                 if (MazeCreate.Instance.Blocks[Player.Instance.PlayerPosX + 1, Player.Instance.PlayerPosY])
                 {
                     isWall = true;
@@ -43,7 +47,6 @@ public class WallCheck : MonoBehaviour
         }
         else
         {
-            print("플레이어 이동");
             Player.Instance.PlayerMove(name);
         }
     }

@@ -78,7 +78,6 @@ public class MazeCreate : Singleton<MazeCreate>
             for (int j = 0; j < Size; j++)
             {
                 a += Blocks[j, i] + ",";
-                print(i + "" + j);
             }
             a += "\n";
         }

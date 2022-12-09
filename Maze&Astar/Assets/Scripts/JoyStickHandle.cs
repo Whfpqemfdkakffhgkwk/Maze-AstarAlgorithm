@@ -25,42 +25,36 @@ public class JoyStickHandle : MonoBehaviour
 
         StartCoroutine(JoystickDirection());
     }
-
+    /// <summary>
+    /// 방향 상하좌우로 분류하는 함수a
+    /// </summary>
+    public int DirClassification()
+    {
+        int dir = 0;
+        if (JS.StickDirection >= 45 && JS.StickDirection < 135)
+            dir = 1; //위
+        else if (JS.StickDirection >= 135 || JS.StickDirection < -135)
+            dir = 2; //왼
+        else if (JS.StickDirection <= -45 && JS.StickDirection >= -135)
+            dir = 3; //아래
+        else //if(JS.StickDirection <= 315 || JS.StickDirection < 45)
+            dir = 4; //오른쪽
+        return dir;
+    }
     //조이스틱이 어느 방향인지 알아내고 그 방향대로 움직이게 하는 코루틴
     public IEnumerator JoystickDirection()
     {
         //조이스틱이 드래그 중이면
         if (JS.isDrag)
         {
-            #region UI 레이캐스트
-            m_PointerEventData = new PointerEventData(m_EventSystem);
-            Camera.main.ScreenToWorldPoint(transform.position);
-            m_PointerEventData.position = Camera.main.WorldToScreenPoint(transform.position);
-            List<RaycastResult> results = new List<RaycastResult>();
-            m_Raycaster.Raycast(m_PointerEventData, results);
-            #endregion
-            //레이캐스트에 맞은 오브젝트들이 1개 이상이면
-            if (results.Count > 0)
-            {
-                //맞은 오브젝트들 갯수만큼 for
-                for (int i = 0; i < results.Count; i++)
-                {
-                    //오브젝트 이름들이 스틱, 조이스틱이 아니면
-                    if (results[i].gameObject.name != "Stick" &&
-                        results[i].gameObject.name != "Joystick")
-                    {
-                        //벽 테스트 오브젝트 소환
-                        GameObject WallTest = ObjPool.GetObject(EPoolType.WallTest, player.gameObject.transform.position);
-                        //벽 테스트를 움직여야하는 위치로 미리 이동시켜보고 벽이 없으면 이동
-                        WallTest.GetComponent<WallCheck>().PlayerMove(results[i].gameObject.name);
-                        //벽 테스트 오브젝트 반납
-                        ObjPool.ReturnObject(EPoolType.WallTest, WallTest);
-                    }
-
-                }
-            }
+            //벽 테스트 오브젝트 소환
+            GameObject WallTest = ObjPool.GetObject(EPoolType.WallTest, player.gameObject.transform.position);
+            //벽 테스트를 움직여야하는 위치로 미리 이동시켜보고 벽이 없으면 이동
+            WallTest.GetComponent<WallCheck>().PlayerMove(DirClassification());
+            //벽 테스트 오브젝트 반납
+            ObjPool.ReturnObject(EPoolType.WallTest, WallTest);
         }
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.6f);
         StartCoroutine(JoystickDirection());
     }
 }

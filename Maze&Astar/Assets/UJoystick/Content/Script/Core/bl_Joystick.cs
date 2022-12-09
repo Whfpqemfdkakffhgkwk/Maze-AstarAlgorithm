@@ -19,6 +19,7 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField] private RectTransform StickRect;//The middle joystick UI
     [SerializeField] private RectTransform CenterReference;
 
+    [Header("스틱 방향")]public float StickDirection; 
     public bool isDrag = false;
 
     //Privates
@@ -78,6 +79,11 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     void Update()
     {
         DeathArea = CenterReference.position;
+
+        //스틱 방향 구하기
+        StickDirection = Mathf.Atan2(StickRect.position.y - CenterReference.position.y
+                                      , StickRect.position.x - CenterReference.position.x) * Mathf.Rad2Deg;
+
         //If this not free (not touched) then not need continue
         if (!isFree)
             return;
@@ -90,6 +96,7 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             isFree = false;
             StickRect.position = DeathArea;
         }
+
     }
 
     /// <summary>
