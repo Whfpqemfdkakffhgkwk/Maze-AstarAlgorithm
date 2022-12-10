@@ -6,7 +6,7 @@ public class MazeCreate : Singleton<MazeCreate>
 {
     [SerializeField] private GameObject MazeStartingPoint, Wall, DeleteWall, PlayerObj;
 
-    [SerializeField] private int MazeSize;
+    public int MazeSize;
 
     public bool[,] Blocks;
 

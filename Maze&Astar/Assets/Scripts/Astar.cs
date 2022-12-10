@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class Astar : MonoBehaviour
 {
-    string[] dir = {"Up", "Down", "Left", "Right"};
-    IEnumerator Test(Vector3 pos)
+    private IEnumerator coroutine;
+    public void Test()
     {
-        for (int i = 0; i < dir.Length; i++)
+        coroutine = AutoClear();
+        StartCoroutine(coroutine);
+    }
+    IEnumerator AutoClear()
+    {
+        if (!MazeCreate.Instance.Blocks[Player.Instance.PlayerPosX + 1, Player.Instance.PlayerPosY])
+            Player.Instance.PlayerMove(4);
+        else if (!MazeCreate.Instance.Blocks[Player.Instance.PlayerPosX, Player.Instance.PlayerPosY + 1])
+            Player.Instance.PlayerMove(1);
+        if (MazeCreate.Instance.MazeSize - 1 == Player.Instance.PlayerPosX &&
+            MazeCreate.Instance.MazeSize == Player.Instance.PlayerPosY)
         {
-            GameObject WallTest = ObjPool.GetObject(EPoolType.WallTest, pos);
-            //WallTest.GetComponent<WallCheck>().Move(dir[i]);
-            yield return new WaitForSeconds(0.01f);
+            yield break;
         }
+            yield return new WaitForSeconds(0.3f);
+            StartCoroutine(AutoClear());
     }
 }

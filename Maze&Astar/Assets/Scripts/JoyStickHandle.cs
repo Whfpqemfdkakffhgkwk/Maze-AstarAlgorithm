@@ -10,23 +10,12 @@ public class JoyStickHandle : MonoBehaviour
     [SerializeField] private bl_Joystick JS;
     [SerializeField] private GameObject canvas;
     [SerializeField] private GameObject eventSystem;
-    [SerializeField] private Player player;
-    private GraphicRaycaster m_Raycaster;
-    private PointerEventData m_PointerEventData;
-    private EventSystem m_EventSystem;
-
     private void Start()
     {
-        //캔버스의 그래픽레이캐스터를 가져옴
-        m_Raycaster = canvas.GetComponent<GraphicRaycaster>();
-
-        //이벤트 시스템 가져옴
-        m_EventSystem = eventSystem.GetComponent<EventSystem>();
-
         StartCoroutine(JoystickDirection());
     }
     /// <summary>
-    /// 방향 상하좌우로 분류하는 함수a
+    /// 방향 상하좌우로 분류하는 함수
     /// </summary>
     public int DirClassification()
     {
@@ -48,7 +37,7 @@ public class JoyStickHandle : MonoBehaviour
         if (JS.isDrag)
         {
             //벽 테스트 오브젝트 소환
-            GameObject WallTest = ObjPool.GetObject(EPoolType.WallTest, player.gameObject.transform.position);
+            GameObject WallTest = ObjPool.GetObject(EPoolType.WallTest, Player.Instance.gameObject.transform.position);
             //벽 테스트를 움직여야하는 위치로 미리 이동시켜보고 벽이 없으면 이동
             WallTest.GetComponent<WallCheck>().PlayerMove(DirClassification());
             //벽 테스트 오브젝트 반납
