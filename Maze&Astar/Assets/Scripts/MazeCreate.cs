@@ -69,6 +69,8 @@ public class MazeCreate : Singleton<MazeCreate>
         //시작지점 뚫어줌
         Blocks[1, 0] = false;
         ObjPool.GetObject(EPoolType.DeleteWall, new Vector2(MazeStartingPoint.transform.position.x + 1, MazeStartingPoint.transform.position.y));
+        
+        //플레이어 시작점 세팅
         PlayerObj.transform.position = new Vector2(MazeStartingPoint.transform.position.x + 1, MazeStartingPoint.transform.position.y);
         PlayerObj.GetComponent<Player>().PlayerPosX = 1;
 

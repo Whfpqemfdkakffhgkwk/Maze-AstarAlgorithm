@@ -13,16 +13,19 @@ public class Player : Singleton<Player>
 {
     public int PlayerPosX, PlayerPosY;
     public int CntBomb, CntHint, CntFail;
-    public bool isWall = false;
+    public bool isWall = false, isMoving = false;
     private I_Item item;
 
     #region ItemManager
+    /// <summary>
+    /// 아이템 종류를 세팅해주고 아이템을 사용
+    /// </summary>
+    /// <param name="itemType">아이템 타입</param>
     public void SetItem(ItemType itemType)
     {
         Component c = gameObject.GetComponent<I_Item>() as Component; // 현재 게임 옵젝의 I_Item 타입의 컴포넌트를 가져온다.
         if(c != null)
         {
-            print("asd");
             Destroy(c);
         }
         switch(itemType)
@@ -43,11 +46,16 @@ public class Player : Singleton<Player>
 
     private void Update()
     {
+        //임시
         if(Input.GetKeyDown(KeyCode.Space))
         {
              SetItem(ItemType.Bomb);
         }
     }
+    /// <summary>
+    /// 플레이어 움직임
+    /// </summary>
+    /// <param name="name">방향</param>
     public void PlayerMove(int name)
     {
         switch (name)
@@ -70,7 +78,10 @@ public class Player : Singleton<Player>
                 break;
         }
     }
-
+    /// <summary>
+    /// 플레이어가 움직일 방향으로 미리 벽을 체크해보기
+    /// </summary>
+    /// <param name="name">방향</param>
     public void WallCheck(int name)
     {
         switch (name)
@@ -96,7 +107,7 @@ public class Player : Singleton<Player>
         if (isWall)
             isWall = false;
         else
-            PlayerMove(name);
+            PlayerMove(name); //벽이 없으니깐 움직임 실행
 
     }
 

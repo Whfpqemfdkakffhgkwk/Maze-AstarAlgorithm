@@ -629,7 +629,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2087892488}
         m_TargetAssemblyTypeName: Astar, Assembly-CSharp
-        m_MethodName: Test
+        m_MethodName: GameGiveUp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1171,4 +1171,7 @@ MonoBehaviour:
   dontdestroy: 0
   PlayerPosX: 0
   PlayerPosY: 0
+  CntBomb: 0
+  CntHint: 0
+  CntFail: 0
   isWall: 0
