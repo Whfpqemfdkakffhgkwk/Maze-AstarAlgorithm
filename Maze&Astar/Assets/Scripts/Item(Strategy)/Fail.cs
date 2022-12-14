@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fail : I_Item
+public class Fail : MonoBehaviour, I_Item
 {
     public void UseItem()
     {

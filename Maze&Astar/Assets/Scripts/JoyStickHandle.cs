@@ -36,12 +36,8 @@ public class JoyStickHandle : MonoBehaviour
         //조이스틱이 드래그 중이면
         if (JS.isDrag)
         {
-            //벽 테스트 오브젝트 소환
-            GameObject WallTest = ObjPool.GetObject(EPoolType.WallTest, Player.Instance.gameObject.transform.position);
-            //벽 테스트를 움직여야하는 위치로 미리 이동시켜보고 벽이 없으면 이동
-            WallTest.GetComponent<WallCheck>().PlayerMove(DirClassification());
-            //벽 테스트 오브젝트 반납
-            ObjPool.ReturnObject(EPoolType.WallTest, WallTest);
+            //그 방향의 벽이 있는지 체크를 해본다
+            Player.Instance.WallCheck(DirClassification());
         }
         yield return new WaitForSeconds(0.6f);
         StartCoroutine(JoystickDirection());
