@@ -13,7 +13,7 @@ public class DeleteWall : MonoBehaviour
     //바로 삭제되면 인식불가
     IEnumerator DestoryThisGameobject()
     {
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.08f);
         ObjPool.ReturnObject(EPoolType.DeleteWall, gameObject);
     }
     //닿은 벽 뚫어줌으로써 미로 만들어감

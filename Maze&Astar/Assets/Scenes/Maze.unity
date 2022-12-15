@@ -1175,3 +1175,4 @@ MonoBehaviour:
   CntHint: 0
   CntFail: 0
   isWall: 0
+  isMoving: 0

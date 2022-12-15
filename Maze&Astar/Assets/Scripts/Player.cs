@@ -49,7 +49,11 @@ public class Player : Singleton<Player>
         //юс╫ц
         if(Input.GetKeyDown(KeyCode.Space))
         {
-             SetItem(ItemType.Bomb);
+             SetItem(ItemType.Fail);
+        }
+        else if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            SetItem(ItemType.Bomb);
         }
     }
     /// <summary>
