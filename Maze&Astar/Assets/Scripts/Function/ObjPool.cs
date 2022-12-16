@@ -5,7 +5,8 @@ using UnityEngine;
 public enum EPoolType
 {
     Wall,
-    DeleteWall
+    DeleteWall,
+    HintBlock
 }
 
 public class ObjPool : Singleton<ObjPool>

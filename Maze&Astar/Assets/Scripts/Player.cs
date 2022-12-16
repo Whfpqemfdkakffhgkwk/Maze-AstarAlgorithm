@@ -6,7 +6,7 @@ public enum ItemType
 {
     Bomb,
     Hint,
-    Fail
+    Bulb
 }
 
 public class Player : Singleton<Player>
@@ -14,6 +14,7 @@ public class Player : Singleton<Player>
     public int PlayerPosX, PlayerPosY;
     public int CntBomb, CntHint, CntFail;
     public bool isWall = false, isMoving = false;
+    public GameObject HintObj;
     private I_Item item;
 
     #region ItemManager
@@ -36,8 +37,8 @@ public class Player : Singleton<Player>
                 case ItemType.Hint:
                 item = gameObject.AddComponent<Hint>();
                 break;
-            case ItemType.Fail:
-                item = gameObject.AddComponent<Fail>();
+            case ItemType.Bulb:
+                item = gameObject.AddComponent<Bulb>();
                 break;
         }
         item.UseItem();
@@ -49,7 +50,7 @@ public class Player : Singleton<Player>
         //юс╫ц
         if(Input.GetKeyDown(KeyCode.Space))
         {
-             SetItem(ItemType.Fail);
+             SetItem(ItemType.Hint);
         }
         else if(Input.GetKeyDown(KeyCode.Escape))
         {
