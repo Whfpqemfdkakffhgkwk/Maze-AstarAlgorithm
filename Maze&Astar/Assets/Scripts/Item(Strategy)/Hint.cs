@@ -13,13 +13,13 @@ public class Hint : MonoBehaviour, I_Item
         for (int i = 0; i < 7; i++)
         {
             //오른쪽이 비어 있을 시 오른쪽으로 이동
-            if (!MazeCreate.Instance.Blocks[x + 1, y])
+            if (!MazeCreate.Instance.Nodes[x + 1, y].isWall)
             {
                 x += 1;
                 ObjPool.GetObject(EPoolType.HintBlock, new Vector2(x, y));
             }
             //또는 윗쪽이 비어 있을 시 윗쪽으로 이동
-            else if (!MazeCreate.Instance.Blocks[x, y + 1])
+            else if (!MazeCreate.Instance.Nodes[x, y + 1].isWall)
             {
                 y += 1;
                 ObjPool.GetObject(EPoolType.HintBlock, new Vector2(x, y));

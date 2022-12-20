@@ -3,25 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[System.Serializable]
-public class Node
-{
-    [Tooltip("이동했던 거리")]public int G; 
-    [SerializeField, Tooltip("목표까지의 거리")]public int H;
-    
-    //G + H, 이동했던거리 + 목표까지의 거리
-    public int F { get { return G + H; } }
-}
-
 public class Boss : MonoBehaviour
 {
     private int CurPosX = 1, CurPosY = 0;
-    [Tooltip("0위, 1아래, 2왼 3오")]Node[] nodes;
 
     private void Start()
     {
         HCount();
+    }
+    void Astar()
+    {
+        while (true)
+        {
+            if (MazeCreate.Instance.MazeSize - 1 == CurPosX &&
+                MazeCreate.Instance.MazeSize == CurPosY)
+            {
+                break;
+            }
+            //H계산
+
+            for (int i = 1; i < 5; i++)
+            {
+                switch (i)
+                {
+                    case 1:
+                        //CurPos + 방향
+                        if (CurPosX > 0 &&
+                            CurPosY > 0 &&
+                            CurPosX != MazeCreate.Instance.MazeSize &&
+                            CurPosY != MazeCreate.Instance.MazeSize &&
+                            MazeCreate.Instance.Nodes[CurPosX, CurPosY].isWall == false)
+                        {
+
+                        }
+                        break;
+                }
+            }
+        }
     }
     void HCount()
     {

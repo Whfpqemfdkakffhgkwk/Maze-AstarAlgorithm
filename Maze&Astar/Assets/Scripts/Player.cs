@@ -92,20 +92,20 @@ public class Player : Singleton<Player>
         switch (name)
         {
             case 1:
-                if (MazeCreate.Instance.Blocks[PlayerPosX, PlayerPosY + 1])
+                if (MazeCreate.Instance.Nodes[PlayerPosX, PlayerPosY + 1].isWall)
                     isWall = true;
                 break;
             case 2:
-                if (MazeCreate.Instance.Blocks[PlayerPosX - 1, PlayerPosY])
+                if (MazeCreate.Instance.Nodes[PlayerPosX - 1, PlayerPosY].isWall)
                     isWall = true;
                 break;
             case 3:
                 if (PlayerPosY - 1 < 0
-                    || MazeCreate.Instance.Blocks[PlayerPosX, PlayerPosY - 1])
+                    || MazeCreate.Instance.Nodes[PlayerPosX, PlayerPosY - 1].isWall)
                         isWall = true;
                 break;
             case 4:
-                if (MazeCreate.Instance.Blocks[PlayerPosX + 1, PlayerPosY])
+                if (MazeCreate.Instance.Nodes[PlayerPosX + 1, PlayerPosY].isWall)
                     isWall = true;
                 break;
         }

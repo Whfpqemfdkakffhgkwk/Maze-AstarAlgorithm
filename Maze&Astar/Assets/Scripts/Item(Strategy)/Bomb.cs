@@ -18,7 +18,7 @@ public class Bomb : MonoBehaviour, I_Item
                     Player.Instance.PlayerPosY + i != MazeCreate.Instance.MazeSize)
                 {
                     //블록을 없애고 false로 바꿈
-                    MazeCreate.Instance.Blocks[Player.Instance.PlayerPosX + j, Player.Instance.PlayerPosY + i] = false;
+                    MazeCreate.Instance.Nodes[Player.Instance.PlayerPosX + j, Player.Instance.PlayerPosY + i].isWall = false;
                     ObjPool.GetObject(EPoolType.DeleteWall, new Vector3(Player.Instance.PlayerPosX + j, Player.Instance.PlayerPosY + i));
                 }
             }
