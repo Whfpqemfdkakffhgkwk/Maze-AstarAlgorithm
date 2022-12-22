@@ -9,6 +9,8 @@ public class Node
     public Node(bool _isWall) { isWall = _isWall; }
     public bool isWall = false;
 
+    public int x;
+    public int y;
     [Tooltip("목표까지의 거리")] public int H;
 }
 public class MazeCreate : Singleton<MazeCreate>
@@ -28,7 +30,10 @@ public class MazeCreate : Singleton<MazeCreate>
         {
             for (int j = 0; j < Size; j++)
             {
-                    Nodes[j, i] = new Node(false);
+                Nodes[j, i] = new Node(false);
+                Nodes[j, i].x = j;
+                Nodes[j, i].y = i;
+                
                 if (i % 2 == 0 || j % 2 == 0)
                 {
                     //격자무늬로 벽들을 생성함
