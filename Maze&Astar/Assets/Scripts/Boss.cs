@@ -11,7 +11,7 @@ public class Boss : MonoBehaviour
 
     Coroutine CurCorouitine;
 
-    private void OnEnable()
+    private void Start()
     {
         Astar();
     }
