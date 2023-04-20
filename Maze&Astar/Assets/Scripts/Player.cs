@@ -52,9 +52,13 @@ public class Player : Singleton<Player>
         {
              SetItem(ItemType.Hint);
         }
-        else if(Input.GetKeyDown(KeyCode.Escape))
+        else if(Input.GetKeyDown(KeyCode.X))
         {
             SetItem(ItemType.Bomb);
+        }
+        else if(Input.GetKeyDown(KeyCode.Z))
+        {
+            SetItem(ItemType.Bulb);
         }
     }
     /// <summary>
@@ -116,11 +120,4 @@ public class Player : Singleton<Player>
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        //if(collision.CompareTag("Bomb"))
-        //{
-        //    CntBomb++;
-        //}
-    }
 }

@@ -9,9 +9,13 @@ public class Node
     public Node(bool _isWall) { isWall = _isWall; }
     public bool isWall = false;
 
+    public Node ParentNode;
+
     public int x;
     public int y;
-    [Tooltip("목표까지의 거리")] public int H;
+    [Tooltip("목표까지의 거리")] public int H = -1;
+    [Tooltip("이동했던 거리")] public int G = 0;
+    [Tooltip("H + G")] public int F = 0;
 }
 public class MazeCreate : Singleton<MazeCreate>
 {
