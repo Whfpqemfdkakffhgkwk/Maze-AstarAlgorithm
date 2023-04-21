@@ -15,7 +15,6 @@ public class Node
     public int y;
     [Tooltip("목표까지의 거리")] public int H = -1;
     [Tooltip("이동했던 거리")] public int G = 0;
-    [Tooltip("H + G")] public int F = 0;
 }
 public class MazeCreate : Singleton<MazeCreate>
 {
