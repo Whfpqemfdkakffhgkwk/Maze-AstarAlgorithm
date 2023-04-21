@@ -1,6 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
-using System.Drawing;
+using UnityEngine.Rendering.PostProcessing;
 
 public enum ItemType
 {
@@ -14,8 +14,37 @@ public class Player : Singleton<Player>
     public int PlayerPosX, PlayerPosY;
     public int CntBomb, CntHint, CntFail;
     public bool isWall = false, isMoving = false;
-    public GameObject HintObj;
+    [SerializeField]
+    private GameObject[] Heart;
+    [SerializeField] GameObject Boss;
     private I_Item item;
+    
+    private int hp = 3;
+
+    public int Hp 
+    {
+        get { return hp; }
+
+        set 
+        { 
+            hp = value;
+            Heart[hp].SetActive(false);
+        }
+    }
+
+    private int cntPlayerMove;
+
+    public int CntPlayerMove
+    { 
+        get { return cntPlayerMove; }
+
+        set 
+        {
+            cntPlayerMove = value;
+
+            if (cntPlayerMove >= 5) Boss.SetActive(true);
+        }
+    }
 
     #region ItemManager
     /// <summary>
@@ -86,6 +115,7 @@ public class Player : Singleton<Player>
                 transform.DOMove(transform.position + new Vector3(1, 0), 0.3f);
                 break;
         }
+        CntPlayerMove++;
     }
     /// <summary>
     /// 플레이어가 움직일 방향으로 미리 벽을 체크해보기
@@ -119,5 +149,4 @@ public class Player : Singleton<Player>
             PlayerMove(name); //벽이 없으니깐 움직임 실행
 
     }
-
 }

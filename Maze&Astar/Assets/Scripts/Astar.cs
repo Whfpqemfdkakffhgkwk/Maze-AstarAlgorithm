@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class Astar : MonoBehaviour
 {
@@ -94,6 +95,13 @@ public class Astar : MonoBehaviour
                 //다음 반복을 위해 이동한 위치 노드를 처음 시작 노드에 넣어준다
                 StartNode = FinalNodeList[1];
 
+                //시작노드가 플레이어 노드라면 (즉, 도착했다면)
+                if (StartNode == TargetNode)
+                {
+                    StartCoroutine(HitMotion());
+                    player.Hp--;
+                }
+
                 return;
             }
 
@@ -106,6 +114,13 @@ public class Astar : MonoBehaviour
         }
 
 
+
+        IEnumerator HitMotion()
+        {
+            Camera.main.gameObject.GetComponent<PostProcessVolume>().profile.GetSetting<Vignette>().color.value = Color.red;
+            yield return new WaitForSeconds(0.2f);
+            Camera.main.gameObject.GetComponent<PostProcessVolume>().profile.GetSetting<Vignette>().color.value = Color.black;
+        }
     }
 
     void OpenListAdd(int X, int Y)
