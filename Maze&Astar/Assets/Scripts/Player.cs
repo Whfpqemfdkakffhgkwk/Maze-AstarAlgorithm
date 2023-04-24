@@ -1,6 +1,8 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEditor;
+using System.Collections;
 
 public enum ItemType
 {
@@ -16,7 +18,7 @@ public class Player : Singleton<Player>
     public bool isWall = false, isMoving = false;
     [SerializeField]
     private GameObject[] Heart;
-    [SerializeField] GameObject Boss;
+    [SerializeField] GameObject Boss, FlameParticle;
     private I_Item item;
     
     private int hp = 3;
@@ -117,6 +119,7 @@ public class Player : Singleton<Player>
         }
         CntPlayerMove++;
     }
+
     /// <summary>
     /// 플레이어가 움직일 방향으로 미리 벽을 체크해보기
     /// </summary>
@@ -148,5 +151,13 @@ public class Player : Singleton<Player>
         else
             PlayerMove(name); //벽이 없으니깐 움직임 실행
 
+    }
+
+    public IEnumerator Explode()
+    {
+        FlameParticle.transform.position = transform.position;
+        FlameParticle.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        FlameParticle.SetActive(false);
     }
 }
