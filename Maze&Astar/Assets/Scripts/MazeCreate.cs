@@ -10,6 +10,7 @@ public class Node
     public bool isWall = false;
 
     public Node ParentNode;
+    public Vector2Int Dir;
 
     public int x;
     public int y;

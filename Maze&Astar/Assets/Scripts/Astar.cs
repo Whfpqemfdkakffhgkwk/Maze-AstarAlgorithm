@@ -6,9 +6,11 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class Astar : MonoBehaviour
 {
-    List<Node> ClosedList = new List<Node>();
-    List<Node> OpenList = new List<Node>();
-    Node CurNode, TargetNode, StartNode;
+    private List<Node> ClosedList = new List<Node>();
+    private List<Node> OpenList = new List<Node>();
+    private Node CurNode, TargetNode, StartNode;
+    private Vector2Int CurDirVector = new Vector2Int();
+
     private Player player;
     private MazeCreate MC;
     private void Start()
@@ -92,6 +94,10 @@ public class Astar : MonoBehaviour
                 //처음 노드의 다음 노드 위치로 이동한다
                 gameObject.transform.DOMove(new Vector3(FinalNodeList[1].x, FinalNodeList[1].y), 0.4f);
 
+                //다음 방향 위치로 돌린다
+                gameObject.transform.rotation = Quaternion.Euler(MoveDirection(FinalNodeList[1].Dir), -90, 90);
+                
+
                 //다음 반복을 위해 이동한 위치 노드를 처음 시작 노드에 넣어준다
                 StartNode = FinalNodeList[1];
 
@@ -106,9 +112,16 @@ public class Astar : MonoBehaviour
             }
 
             //↑ → ↓ ←
+            CurDirVector = Vector2Int.up;
             OpenListAdd(CurNode.x, CurNode.y + 1);
+
+            CurDirVector = Vector2Int.right;
             OpenListAdd(CurNode.x + 1, CurNode.y);
+
+            CurDirVector = Vector2Int.down;
             OpenListAdd(CurNode.x, CurNode.y - 1);
+
+            CurDirVector = Vector2Int.left;
             OpenListAdd(CurNode.x - 1, CurNode.y);
 
         }
@@ -149,11 +162,28 @@ public class Astar : MonoBehaviour
                 NeighborNode.H = Mathf.Abs(NeighborNode.x - TargetNode.x) + Mathf.Abs(NeighborNode.y - TargetNode.y);
                 //이웃노드의 전 노드는 들어오기 전 노드(현재 노드)로 넣어주고
                 NeighborNode.ParentNode = CurNode;
-
+                NeighborNode.Dir = CurDirVector;
                 //열려있는 노드들에 이웃노드를 넣어준다
                 OpenList.Add(NeighborNode);
             }
         }
+    }
+
+    /// <summary>
+    /// 어느방향으로 돌릴 것인지를 알아낸 다음 그 로테이션의 x값을 반환해주는 int형
+    /// </summary>
+    /// <param name="compareVector"></param>
+    /// <returns></returns>
+    int MoveDirection(Vector2Int compareVector)
+    {
+        if (compareVector == Vector2Int.up)
+            return 270;
+        else if (compareVector == Vector2Int.down)
+            return 90;
+        else if (compareVector == Vector2Int.right)
+            return 180;
+        else     //compareVector == Vector2Int.left
+            return 0;
     }
 
 }
